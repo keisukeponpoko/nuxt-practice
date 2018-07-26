@@ -38,10 +38,13 @@ module.exports = {
   modules: [
     ['@nuxtjs/pwa', { icon: false }],
     ['@nuxtjs/axios']
-  ]
-  // axios: {
-  //   debug: true
-  // }
+  ],
+  axios: {
+    debug: process.env.NODE_ENV == 'production' ? false : true,
+    baseURL: process.env.NODE_ENV == 'production' ? 'https://murmuring-garden-85440.herokuapp.com/' : 'http://localhost:3000',
+    proxyHeaders: false,
+    credentials: false
+  }
   // plugins: [
   //   { src: "~plugins/persistedstate.js", ssr: false }
   // ]
