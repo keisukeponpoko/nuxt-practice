@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import apis from '~/api/index'
+import library from '~/library/index'
 
 const store = () => new Vuex.Store({
   state: {
@@ -25,13 +25,11 @@ const store = () => new Vuex.Store({
     }
   },
   actions: {
-    searchItems ({state, commit}, keyword) {
-      apis.getItems(
-        {id: state.id, keyword: keyword},
-        (items => {commit('setItems', items)})
-      )
+    async searchItems ({state, commit}, keyword) {
+      const response = await this.$axios.$get(`/json/${state.id}/items.json`)
+      commit('setItems', library.searchItems(keyword, response))
     },
-    setInfo ({commit}, param) {
+    async setInfo ({commit}, param) {
       const id = param['id'] || 131130
       const area = param['area'] || '千駄ヶ谷'
       const number = param['number'] || '1～4丁目'
@@ -40,11 +38,9 @@ const store = () => new Vuex.Store({
       commit('setArea', area)
       commit('setNumber', number)
       this.dispatch('searchItems', '')
-      apis.getTypes(id, (types => {commit('setTypes', types)}))
-      apis.getWeeks(
-        {id: id, area: area, number: number},
-        (weeks => {commit('setWeeks', weeks)})
-      )
+      commit('setTypes', (await this.$axios.$get(`/json/${id}/type.json`)).type)
+      const response = await this.$axios.$get(`/json/${id}/week.json`)
+      commit('setWeeks', library.findWeeks(response, {area: area, number: number}))
     }
   },
   mutations: {

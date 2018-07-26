@@ -20,8 +20,8 @@ export default {
     SearchBox,
     ResultBox
   },
-  created: function () {
-    this.$store.dispatch('setInfo', {})
+  fetch ({ store }) {
+    return store.dispatch('setInfo', {})
   },
   head () {
     return {

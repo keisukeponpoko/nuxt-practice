@@ -36,8 +36,12 @@ module.exports = {
     }
   },
   modules: [
-    ['@nuxtjs/pwa', { icon: false }]
-  ],
+    ['@nuxtjs/pwa', { icon: false }],
+    ['@nuxtjs/axios']
+  ]
+  // axios: {
+  //   debug: true
+  // }
   // plugins: [
   //   { src: "~plugins/persistedstate.js", ssr: false }
   // ]
