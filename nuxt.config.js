@@ -40,7 +40,7 @@ module.exports = {
     ['@nuxtjs/axios']
   ],
   axios: {
-    debug: process.env.NODE_ENV == 'production' ? false : true,
+    debug: false,
     baseURL: process.env.NODE_ENV == 'production' ? 'https://murmuring-garden-85440.herokuapp.com/' : 'http://localhost:3000',
     proxyHeaders: false,
     credentials: false

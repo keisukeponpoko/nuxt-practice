@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class='wrapper'>
-      <input class='form' type='text' autocomplete='off' v-model='keyword' placeholder="ゴミ名を入力ください">
+      <input class='form' type='text' @input="updateValue" v-model='keyword' placeholder="ゴミ名を入力ください">
     </div>
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
       if (this.keyword != '') {
         this.$store.dispatch('searchItems', this.keyword)
       }
+    }
+  },
+  methods: {
+    updateValue: function(event) {
+      this.keyword = event.target.value
     }
   }
 }
